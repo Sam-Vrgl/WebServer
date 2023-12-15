@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser'); 
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -39,16 +39,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/html/index.html'));
 });
-app.get('/index.html', (req, res) => {
+app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/html/index.html'));
 });
-app.get('/contact.html', (req, res) => {
+app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/html/contact.html'));
 });
 
 
 // Handle requests for the todo.ejs file
-app.get('/todo.html', (req, res) => {
+app.get('/todo', (req, res) => {
     // Sample MySQL query to select specified columns from tasks
     const query = 'SELECT id_task, task_name, task_state, task_content FROM tasks';
 
@@ -100,7 +100,7 @@ app.post('/addTask', (req, res) => {
             res.status(500).send('Internal Server Error');
         } else {
             console.log('New task added:', result);
-            res.redirect('/todo.html'); // Redirect to the todo page after adding the task
+            res.redirect('/todo'); // Redirect to the todo page after adding the task
         }
     });
 });
@@ -120,7 +120,7 @@ app.post('/editTask', (req, res) => {
             res.status(500).send('Internal Server Error');
         } else {
             console.log('Task updated:', result);
-            res.redirect('/todo.html'); // Redirect to the todo page after updating the task
+            res.redirect('/todo'); // Redirect to the todo page after updating the task
         }
     });
 });
@@ -161,17 +161,16 @@ app.post('/deleteTask', (req, res) => {
         } else {
             console.log('Task deleted:', result);
             res.send('Task deleted successfully');
-            res.redirect('/todo.html');
         }
     });
 });
 
 
 
-app.get('/projets.html', (req, res) => {
+app.get('/projets', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/html/projets.html'));
 });
-app.get('/experience.html', (req, res) => {
+app.get('/experience', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/html/experience.html'));
 });
 

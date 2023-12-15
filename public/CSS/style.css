@@ -48,6 +48,9 @@ a:hover, a:visited, a:link, a:active
     display: flex;
     justify-content: space-between;
 }
+table{
+    background-color: white;
+}
 
 #text{
     width: 50vh;
