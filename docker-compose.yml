@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  # MySQL instance
+  mysql:
+    image: mysql:latest
+    container_name: todo_mysql
+    networks:
+      - todo_network
+    environment:
+      MYSQL_DATABASE: todoList
+      MYSQL_USER: root
+
+  # TODO List application instances
+  todo_app: server.js
+    image: server.js
+    container_name: todo_app
+    networks:
+      - todo_network
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: todoList
+      MYSQL_USER: root
+
+  # Caddy for load balancing
+  caddy:
+    image: caddy
+    container_name: caddy
+    networks:
+      - todo_network
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+networks:
+  todo_network:
+    driver: bridge
