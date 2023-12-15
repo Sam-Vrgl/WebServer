@@ -67,6 +67,24 @@ app.get('/todo.html', (req, res) => {
     });
 });
 
+// Handle GET requests to fetch updated tasks
+app.get('/getTasks', (req, res) => {
+    // Sample MySQL query to get tasks (adjust as needed)
+    const getTasksQuery = 'SELECT * FROM tasks';
+
+    // Execute the query
+    db.query(getTasksQuery, (err, tasks) => {
+        if (err) {
+            console.error('MySQL query error:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            // Render the updated tasks as HTML directly in the response
+            console.error('updated tasks');
+            res.render('todo', { tasks });
+        }
+    });
+});
+
 // Handle POST requests to add tasks
 app.post('/addTask', (req, res) => {
     const { taskName, taskContent } = req.body;

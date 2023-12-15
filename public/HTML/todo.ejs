@@ -63,7 +63,31 @@
         </tbody>
     </table>
 
+    <button onclick="updateTasks()">Update Tasks</button>
+
     <script>
+            function updateTasks() {
+        // Sample AJAX request to fetch updated tasks
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/getTasks', true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Successful response, update tasks on the page
+                    const tasksTableBody = document.getElementById('tasksTableBody');
+                    tasksTableBody.innerHTML = xhr.responseText;
+                } else {
+                    // Handle other response statuses if needed
+                    console.error('Error fetching tasks:', xhr.status, xhr.statusText);
+                }
+            }
+        };
+
+        // Send the AJAX request
+        xhr.send();
+    }
+
         function toggleEditForm(taskId) {
             const editForm = document.getElementById(`editForm${taskId}`);
             editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
@@ -81,7 +105,7 @@
         xhr.open('POST', '/deleteTask', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({ taskId }));
-        
+
         const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
         if (taskRow) {
             taskRow.remove();
