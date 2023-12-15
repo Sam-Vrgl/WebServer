@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser'); 
 
 const app = express();
-const PORT = 4001;
+const PORT = process.env.PORT || 4001;
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
