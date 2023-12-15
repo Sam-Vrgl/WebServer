@@ -1,0 +1,15 @@
+todo.exemple.localhost {
+	reverse_proxy localhost:4000
+	root * /chemin/vers/todo
+	encode gzip
+	tls internal
+	file_server browse
+}
+
+portfolio.exemple.localhost {
+	reverse_proxy localhost:4001
+	root * /chemin/vers/portfolio
+	encode gzip
+	tls internal
+	file_server browse
+}
