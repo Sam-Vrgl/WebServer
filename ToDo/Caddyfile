@@ -1,6 +1,6 @@
 todo.exemple.localhost {
 	reverse_proxy localhost:4000
-	root * /ToDo/public/html/
+	root * /public/html/
 	encode gzip
 	tls internal
 	file_server browse
@@ -8,7 +8,7 @@ todo.exemple.localhost {
 
 portfolio.exemple.localhost {
 	reverse_proxy localhost:4001
-	root * /portfolio/public/html/
+	root * /public/html/
 	encode gzip
 	tls internal
 	file_server browse

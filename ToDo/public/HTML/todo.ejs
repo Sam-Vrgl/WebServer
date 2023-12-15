@@ -8,23 +8,6 @@
     <title>Todo List</title>
 </head>
 <body>
-    <div class="menu">
-        <a class="word link" href="./index">
-            <p>Home</p>
-        </a>
-        <a class="word link" href="./projets">
-            <p>Projets</p>
-        </a>
-        <a class="word link" href="./experience">
-            <p>Experience</p>
-        </a>
-        <a class="word link" href="./contact">
-            <p>Contact</p>
-        </a>
-        <a class="word link" href="./todo">
-            <p>Todo</p>
-        </a>
-    </div>
     <h1>Task List</h1>
 
     <form action="/addTask" method="post">
@@ -35,8 +18,9 @@
         <button type="submit">Add Task</button>
     </form>
 
+    <div class="table-wrapper">
     <table border="1">
-        <thead>
+        <thead class="fixed">
             <tr>
                 <th>Name</th>
                 <th>State</th>
@@ -79,6 +63,7 @@
             <% }); %>
         </tbody>
     </table>
+    </div>
 
     <button onclick="updateTasks()">Update Tasks</button>
 

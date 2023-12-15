@@ -52,6 +52,21 @@ table{
     background-color: white;
 }
 
+.table-wrapper{
+    overflow:hidden;
+    overflow-y: scroll;
+    height: 60vh;
+    width: fit-content;
+}
+
+.fixed {
+    top: 0;
+    z-index: 2;
+    position: sticky;
+    background-color: white;
+ }
+
+
 #text{
     width: 50vh;
     padding: 2vw;

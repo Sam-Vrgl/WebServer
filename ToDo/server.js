@@ -37,14 +37,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Handle requests for the HTML file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '/html/index.html'));
+    // Sample MySQL query to select specified columns from tasks
+    const query = 'SELECT id_task, task_name, task_state, task_content FROM tasks';
+
+    // Execute the query
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('MySQL query error:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            console.log('MySQL query results:', results);
+            // Render todo.ejs file with data
+            res.render('todo', {
+                tasks: results,
+            });
+        }
+    });
 });
-app.get('/index', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '/html/index.html'));
-});
-app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '/html/contact.html'));
-});
+
 
 
 // Handle requests for the todo.ejs file
