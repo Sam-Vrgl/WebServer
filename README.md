@@ -8,6 +8,6 @@ Si sous windows passer en UTF-8 avec chcp 65001
 
 ## init server
 
-npm install
+npm install pour les deux projets
 >node server.js pour les deux projets
 >caddy run
