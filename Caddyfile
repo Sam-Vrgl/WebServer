@@ -13,3 +13,29 @@ portfolio.exemple.localhost {
 	tls internal
 	file_server browse
 }
+
+# todo.exemple.localhost {
+# 	reverse_proxy {
+# 		to localhost:4000
+# 		to localhost:4005
+# 		to localhost:4010
+# 		to localhost:4015
+# 	}
+# 	root * /public/html/
+# 	encode gzip
+# 	tls internal
+# 	file_server browse
+# }
+
+# portfolio.exemple.localhost {
+# 	reverse_proxy {
+# 		to localhost:4001
+# 		to localhost:4006
+# 		to localhost:4011
+# 		to localhost:4016
+# 	}
+# 	root * /portfolio/public/html/
+# 	encode gzip
+# 	tls internal
+# 	file_server browse
+# }
