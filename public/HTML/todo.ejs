@@ -1,0 +1,92 @@
+<!-- public/todo.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Task List</h1>
+
+    <form action="/addTask" method="post">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" name="taskName" required>
+        <label for="taskContent">Task Content:</label>
+        <input type="text" id="taskContent" name="taskContent" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Content</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tasks.forEach(task => { %>
+                <tr>
+                    <tr data-task-id="<%= task.id_task %>">
+                    <td><%= task.task_name %></td>
+                    <td>
+                        <input
+                            type="checkbox"
+                            <%= task.task_state ? 'checked' : '' %>
+                            onchange="updateTaskState('<%= task.id_task %>', this.checked)"
+                        >
+                    </td>
+
+                    <td><%= task.task_content %></td>
+                    <td>
+                        <button onclick="toggleEditForm('<%= task.id_task %>')">Edit</button>
+
+                        <form id="editForm<%= task.id_task %>" style="display: none;" action="/editTask" method="post">
+                            <input type="hidden" name="taskId" value="<%= task.id_task %>">
+                            <label for="editTaskName<%= task.id_task %>">New Task Name:</label>
+                            <input type="text" id="editTaskName<%= task.id_task %>" name="editTaskName" required>
+                            <label for="editTaskContent<%= task.id_task %>">New Task Content:</label>
+                            <input type="text" id="editTaskContent<%= task.id_task %>" name="editTaskContent" required>
+                            <button type="submit">Update</button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <button onclick="deleteTask('<%= task.id_task %>')">Delete</button>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script>
+        function toggleEditForm(taskId) {
+            const editForm = document.getElementById(`editForm${taskId}`);
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function updateTaskState(taskId, newState) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/updateTaskState', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({ taskId, newState }));
+        }
+
+        function deleteTask(taskId) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteTask', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ taskId }));
+        
+        const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
+        if (taskRow) {
+            taskRow.remove();
+        }
+    }
+    </script>
+</body>
+</html>
